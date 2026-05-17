@@ -70,7 +70,7 @@
                 payload: { title, description, code, author, client_time }
             });
 
-            setTimeout(() => { isProcessing = false; }, 5000);
+
         } catch (error) {
             console.error("LeetLog AI Error:", error);
             chrome.runtime.sendMessage({ type: 'STATUS_UPDATE', message: 'Auto-Post Error: ' + error.message, status: 'error' });
@@ -78,10 +78,14 @@
         }
     };
 
-    // Start of Listener for manual triggers from popup
+    // Start of Listener for manual triggers from popup and status updates
     chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         if (request.type === 'MANUAL_TRIGGER') {
             triggerBlogGeneration();
+        } else if (request.type === 'STATUS_UPDATE') {
+            if (request.status === 'success' || request.status === 'error') {
+                isProcessing = false;
+            }
         }
     });
 
