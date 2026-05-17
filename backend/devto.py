@@ -1,6 +1,7 @@
-import requests
 import os
 import time
+
+import requests
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -10,14 +11,14 @@ API_KEY = os.getenv("DEVTO_API_KEY")
 def post_to_platform(title, content):
     if not API_KEY:
         raise Exception("Dev.to API key missing. Please set DEVTO_API_KEY in .env.")
-        
+
     url = "https://dev.to/api/articles"
 
     headers = {
         "api-key": API_KEY,
         "Content-Type": "application/json"
     }
-    
+
     # Dev.to accepts native markdown, which is exactly what Gemini outputs!
     data = {
         "article": {
@@ -32,7 +33,7 @@ def post_to_platform(title, content):
     for attempt in range(retries + 1):
         try:
             response = requests.post(url, headers=headers, json=data)
-            
+
             if response.status_code in (200, 201):
                 return response.json()
             else:

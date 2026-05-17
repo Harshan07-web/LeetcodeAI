@@ -1,18 +1,16 @@
-from fastapi import FastAPI
-from pydantic import BaseModel
-from fastapi.middleware.cors import CORSMiddleware
-from ai import generate_blog
-from devto import post_to_platform
-import uvicorn
-from dotenv import load_dotenv
 import os
 
-from alerts.scheduler import scheduler
-from services.reminder_scheduler import start_scheduler
-
-from apscheduler.schedulers.asyncio import AsyncIOScheduler
-from twilio.rest import Client
 import motor.motor_asyncio
+import uvicorn
+from dotenv import load_dotenv
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
+from twilio.rest import Client
+
+from ai import generate_blog
+from devto import post_to_platform
+from services.reminder_scheduler import start_scheduler
 
 load_dotenv()
 

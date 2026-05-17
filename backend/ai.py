@@ -1,9 +1,10 @@
-import google.generativeai as genai
+import logging
 import os
 import time
-import logging
-from dotenv import load_dotenv
 from datetime import datetime
+
+import google.generativeai as genai
+from dotenv import load_dotenv
 
 load_dotenv()
 
